@@ -9,6 +9,7 @@ public class GenerateAttackers : MonoBehaviour
 	public int planetType = 1;
 	public static Color colortest;
 	private float delay=10;
+
 	
 
 
@@ -37,18 +38,17 @@ public class GenerateAttackers : MonoBehaviour
 							Vector3 position = new Vector3(UnityEngine.Random.Range(-6.0F, 0.0F), UnityEngine.Random.Range(-4.0F, 1.0F), 0);
 							Instantiate(ship, position, Quaternion.identity);
 							//gameObject.tag = "Home Ship";
-							delay = 1f;
+							delay = 2f;
 						}
 				
-						if (gameObject.tag == "Enemy Base") {
-							transform.renderer.material.color = hexColor(255, 0, 13, 255);
-							Vector3 position = new Vector3(UnityEngine.Random.Range(-6.0F, 0.0F), UnityEngine.Random.Range(-4.0F, 1.0F), 0);
-							Instantiate(ship, position, Quaternion.identity);
-			//	transform.position = new Vector3(transform.position.x - range * Random.value, transform.position.y, transform.position.z);
-
-							//gameObject.tag = "Enemy Ship";
-							delay = 1f;
-			}
+//						if (gameObject.tag == "Enemy Base") {
+//							transform.renderer.material.color = hexColor(255, 0, 13, 255);
+//							Vector3 position = new Vector3(UnityEngine.Random.Range(-6.0F, 0.0F), UnityEngine.Random.Range(-4.0F, 1.0F), 0);
+//							Instantiate(ship, position, Quaternion.identity);
+//
+//							//gameObject.tag = "Enemy Ship";
+//							delay = 1f;
+//			}
 			
 			
 			

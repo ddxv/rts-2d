@@ -7,39 +7,66 @@ public class Unit : MonoBehaviour {
 	
 	private Vector3 destination;
 	private Vector3 hitPoint;
-	private Quaternion targetRotation;
 
-	public float moveSpeed, rotateSpeed;
 
-	 void Update () {
+	private Vector2 rotateRange;
+	private int speed = 2;
 
-		if (Input.GetMouseButtonDown (0)) {
+	private GameObject target;
+
+
+	
+
+	void Update () {
+
+
+       
+			if (Input.GetMouseButtonDown (0)) {
+
+//			if (Orbit.isHitt == true){
+//				StartOrbit(); }
+			//transform.RotateAround(target.transform.position, Vector3.up, speed * Time.deltaTime );
+
+//						
+//				if (Orbit.isHit == true){
+//				transform.RotateAround (GameObject.Find(Orbit.collider.gameObject.name)transform.position, Vector3.up, 20 * Time.deltaTime);
+//			//transform.RotateAround(target.transform.position, Vector3.up, speed * Time.deltaTime );
+//			}
+//			GameObject.Find(hit.collider.gameObject.name)
+
+						//get click location for destination
 						hitPoint = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-						hitPoint.z = transform.position.z;
 										
-						//transform.position = Vector3.MoveTowards(transform.position, hitPoint, 2 * Time.deltaTime);
-				
 						float x = hitPoint.x;
 						float y = hitPoint.y;
 						float z = 0;
+						
 						Vector3 destination = new Vector3 (x, y, z);
+						
+						
 						StartMove (destination);
 
-			//This is currently working, by itself, to rotate ships, problem is they are not pointing correctly (sideways)
+						//Rotates Ships
 						Vector3 mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 						transform.rotation = Quaternion.LookRotation (Vector3.forward, mousePos - transform.position);
 				}
-	  
-		if(rotating) TurnToTarget();
-		else if(moving) MakeMove();
+	  			
+				//rotating ship first using bool, then moving
+				if(rotating) TurnToTarget();
+				else if(moving) MakeMove();
 			}
+
+
+		public void StartOrbit() {
+		Debug.Log ("Did we make it?");
+	//	transform.RotateAround (Orbit.isHit, Vector3.up, 20 * Time.deltaTime);
+	}
 
 
 
 	public void StartMove(Vector3 destination) {
 		Debug.Log ("startmove started");
 		this.destination = destination;
-		//targetRotation = Quaternion.LookRotation (destination - transform.position);
 		rotating = true;
 		moving = false;
 	}
@@ -59,7 +86,7 @@ public class Unit : MonoBehaviour {
 
 	private void MakeMove() {
 		transform.position = Vector3.MoveTowards(transform.position, destination, Time.deltaTime * 3);
-		Debug.Log ("makemove's transforming");
+		//Debug.Log ("makemove's transforming");
 		if(transform.position == destination) moving = false;
 	}
 	
