@@ -1,51 +1,75 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Obittwo : MonoBehaviour {
+public class Obittwo : MonoBehaviour
+{
 			
-		public static GameObject cube;
-		static public Transform center;
+		public GameObject currentBase;
 		public Vector3 axis = Vector2.zero;
 		public Vector3 desiredPosition;
-		public float radius = 2.0f;
-		public float radiusSpeed = 0.5f;
+		public float radius = 1.5f;
+		public float radiusSpeed = 1.5f;
 		public float rotationSpeed = 80.0f;
+
+		public bool inOrbit = false;
 		
-		void Start () {
-			//cube = GameObject.FindWithTag("Enemy Base");
-//			center = cube.transform;
-			transform.position = (transform.position - center.position).normalized * radius + center.position;
-//			radius = 2.0f;
+		Transform center;
+		float radiusOffset;
+
+		public void SetBase (GameObject newBase)
+		{
+				currentBase = newBase;
+		}
+
+		public void DetachBase ()
+		{
+				currentBase = null;
+		}
+
+		void Start ()
+		{
+			// Gives each unit a little amount of random offset from the center so they
+			// don't all rotate around the exact same circle. Value is negative so they are 
+			// closer than the radius
+			radiusOffset = Random.Range (0.7f, 0.9f);
+
 		}
 		
-		void Update () {
+		void Update ()
+		{		
+				// If the current base is set, determine if the unit is within it's orbit (based on radius)
+				// and set the inOrbit value
+				if (currentBase != null) {
+						float distance = Vector3.Distance (currentBase.transform.position, transform.position);
+						if (distance <= radius)
+								inOrbit = true;
+						else
+								inOrbit = false;	
+				} else // If no base, not in orbit
+						inOrbit = false;
 
-//
-//		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
-//		RaycastHit2D hit = Physics2D.Raycast (ray.origin, ray.direction);
-//		
-//		
-//		
-//		if (hit != null && hit.collider == null) {
-//						//isHit = hit.collider.gameObject.transform.position;
-//						Debug.Log ("HITIITITITI");
-//						//isHitt = true;
-//						//Destroy(GameObject.Find(hit.collider.gameObject.name));
-
-				}
-
-
-	public void Orbital() {
-
-		center = cube.transform;
-		//transform.position = (transform.position - center.position).normalized * radius + center.position;
-		radius = 2.0f;
-
-
-
-			transform.RotateAround (center.position, axis, rotationSpeed * Time.deltaTime);
-			desiredPosition = (transform.position - center.position).normalized * radius + center.position;
-			transform.position = Vector3.MoveTowards(transform.position, desiredPosition, Time.deltaTime * radiusSpeed);
+				// If orbiting, call the orbital method to rotate ship around the base
+				if (inOrbit ==  true)
+					Orbital ();
 		}
-	}
+
+		public void Orbital ()
+		{				
+				center = currentBase.transform;
+				print ("orbiting");
+
+				// Rotates the ship around the base
+				transform.RotateAround (center.position, axis, rotationSpeed * Time.deltaTime);
+				
+				// If the ship is not at the desired distance from the base, this adjusts the position over time.
+				// This is necessary is the unit is too close, or within the radius but not within the offset. 
+				desiredPosition = (transform.position - center.position).normalized * radius * radiusOffset + center.position;
+				transform.position = Vector3.MoveTowards (transform.position, desiredPosition, Time.deltaTime * radiusSpeed);
+
+				// Angle the ship toward the base.
+				transform.rotation = Quaternion.LookRotation (Vector3.forward, currentBase.transform.position - transform.position);
+
+	
+		}
+}
 

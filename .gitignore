@@ -86,3 +86,5 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
+
+Assets/Resources.meta
