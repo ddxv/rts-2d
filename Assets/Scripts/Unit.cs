@@ -11,11 +11,31 @@ public class Unit : MonoBehaviour
 		private int speed = 2;
 		private GameObject target;
 		Obittwo orbit;
+		public static Color colortest;
+
+
+	
 
 		void Start ()
 		{
 				orbit = GetComponent<Obittwo> (); 
+
+		//Choose Ship Color
+				if (gameObject.tag == "Enemy Ship") {
+					transform.renderer.material.color = hexColor (255, 0, 13, 255);
+						}
+				if (gameObject.tag == "Home Ship") {
+					transform.renderer.material.color = hexColor (0, 222, 185, 255);
+						}
 		}
+
+
+	//This is only for converting RGB to proper hexdecimal color, RGB colors can be used below by using hexColor(number, number, number, number)
+	public static Vector4 hexColor(float r, float g, float b, float a){
+		Vector4 color = new Vector4(r/255, g/255, b/255, a/255);
+		colortest = color;
+		return color;
+	}
 
 		void Update ()
 		{
