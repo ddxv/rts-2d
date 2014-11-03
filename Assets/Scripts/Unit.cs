@@ -5,6 +5,7 @@ public class Unit : MonoBehaviour
 {
 
 		protected bool moving, rotating;
+		public int hitPoints = 100;
 		private Vector3 destination;
 		private Vector3 hitPoint;
 		private Vector2 rotateRange;
@@ -20,13 +21,7 @@ public class Unit : MonoBehaviour
 		{
 				orbit = GetComponent<Obittwo> (); 
 
-		//Choose Ship Color
-				if (gameObject.tag == "Enemy Ship") {
-					transform.renderer.material.color = hexColor (255, 0, 13, 255);
-						}
-				if (gameObject.tag == "Home Ship") {
-					transform.renderer.material.color = hexColor (0, 222, 185, 255);
-						}
+
 		}
 
 
@@ -46,8 +41,8 @@ public class Unit : MonoBehaviour
 						Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 						RaycastHit2D hit = Physics2D.Raycast (ray.origin, ray.direction);
 						
-						// If the ray hits an enemy base, store the base in the unit's base property
-						if (hit != null && hit.collider != null && hit.collider.tag == "Enemy Base") {
+						// If the ray hits a base, store the base in the unit's base property
+						if (hit != null && hit.collider != null && hit.collider.tag == "Base") {
 								orbit.SetBase (hit.collider.gameObject);
 						} else { // if the position was not an enemy base, detach the unit from it's current base
 								orbit.DetachBase ();
@@ -62,13 +57,20 @@ public class Unit : MonoBehaviour
 
 						Vector3 destination;
 						destination = new Vector3 (x, y, z);
-
+				
+			//Move your ships
+			if (gameObject.tag == "Green"){
 						StartMove (destination);
-
 						// Rotates Ships
 						Vector3 mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 						transform.rotation = Quaternion.LookRotation (Vector3.forward, mousePos - transform.position);
-				}
+			}
+
+
+
+		}
+
+				if (hitPoints < 1) { Destroy (gameObject); }
 
 				// If the unit is in orbit, then the orbit dermines it's position/rotation so stop movement.
 				if (orbit.inOrbit)

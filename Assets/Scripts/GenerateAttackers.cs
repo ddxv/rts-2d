@@ -5,8 +5,9 @@ public class GenerateAttackers : MonoBehaviour
 	
 {
 	
-	public GameObject ship;
-	public int planetType = 1;
+	public GameObject redship;
+	public GameObject greenship;
+
 	private float delay=10;
 	public static Color colortest;
 	public Vector3 baseLocalPos = Vector3.zero;
@@ -23,10 +24,10 @@ public class GenerateAttackers : MonoBehaviour
 				//baseposition = transform.position;
 
 				//Choose Ship Color
-				if (gameObject.tag == "Home Base") {
+				if (gameObject.tag == "Red Base") {
 						transform.renderer.material.color = hexColor (255, 0, 13, 255);
 				}
-				if (gameObject.tag == "Enemy Base") {
+				if (gameObject.tag == "Green Base") {
 						transform.renderer.material.color = hexColor (0, 222, 185, 255);
 				}
 
@@ -49,21 +50,21 @@ public class GenerateAttackers : MonoBehaviour
 		while (true) {
 
 			//this loop checks to find whether ships are enemies or friendly and instantiates them around the base in a random fashion
-						if (gameObject.tag == "Home Base") {
+						if (gameObject.tag == "Green Base") {
 							Vector3 pos = FindPos();
 							pos += transform.position;
 							//Instantiate(prefab, pos, transform.rotation);
-							Instantiate(ship, pos, Quaternion.identity);
-							ship.gameObject.tag = "Home Ship";
+							Instantiate(greenship, pos, Quaternion.identity);
+							greenship.gameObject.tag = "Green";
 							delay = 2f;
 						}
 				
-						if (gameObject.tag == "Enemy Base") {
+						if (gameObject.tag == "Red Base") {
 							Vector3 pos = FindPos();
 							pos += transform.position;
 							//Instantiate(prefab, pos, transform.rotation);
-							Instantiate(ship, pos, Quaternion.identity);
-							ship.gameObject.tag = "Enemy Ship";
+							Instantiate(redship, pos, Quaternion.identity);
+							redship.gameObject.tag = "Red";
 							delay = 2f;
 						}
 			

@@ -31,7 +31,7 @@ public class Obittwo : MonoBehaviour
 			// Gives each unit a little amount of random offset from the center so they
 			// don't all rotate around the exact same circle. Value is negative so they are 
 			// closer than the radius
-			radiusOffset = Random.Range (0.7f, 0.9f);
+			radiusOffset = Random.Range (0.8f, 0.9f);
 
 		}
 		
