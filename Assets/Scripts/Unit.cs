@@ -9,6 +9,7 @@ public class Unit : MonoBehaviour
 		private Vector3 destination;
 		private Vector3 hitPoint;
 		private Vector2 rotateRange;
+		public Vector3 targetLocation;
 		private int speed = 2;
 		private GameObject target;
 		Obittwo orbit;
@@ -25,12 +26,7 @@ public class Unit : MonoBehaviour
 		}
 
 
-	//This is only for converting RGB to proper hexdecimal color, RGB colors can be used below by using hexColor(number, number, number, number)
-	public static Vector4 hexColor(float r, float g, float b, float a){
-		Vector4 color = new Vector4(r/255, g/255, b/255, a/255);
-		colortest = color;
-		return color;
-	}
+
 
 		void Update ()
 		{
@@ -84,6 +80,10 @@ public class Unit : MonoBehaviour
 		public void StartMove (Vector3 destination)
 		{
 				Debug.Log ("startmove started");
+
+		//rotates ships ONLY AI, targetLocation set by EnemyAI
+		//targetLocation = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+		transform.rotation = Quaternion.LookRotation (Vector3.forward, targetLocation - transform.position);
 				this.destination = destination;
 				rotating = true;
 				moving = false;
