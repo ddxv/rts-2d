@@ -38,7 +38,7 @@ public class AnyAttack : MonoBehaviour {
 			origin = this.gameObject.transform;
 
 			//determines distance between attacker and object of attack （destination.position)
-			dist = Vector3.Distance (this.gameObject.transform.position, destination.position);
+			// dist = Vector3.Distance (this.gameObject.transform.position, destination.position);
 			
 			//LASERS! Should be animated, but doesn't seem to draw, just appear...
 			//				if (counter < dist) {
@@ -104,11 +104,12 @@ public class AnyAttack : MonoBehaviour {
 			//Attacking Other Ships Life Points
 			Unit script = shipship.GetComponent<Unit>();
 			script.hitPoints -= 10;
+			Score.totalPoints += 10;
 			Debug.Log ("Current life down," + script.hitPoints);
 			if (script.hitPoints < 1) {
 				attackingbool = false;
 				
-				
+
 				
 				
 				

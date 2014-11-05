@@ -66,7 +66,11 @@ public class Unit : MonoBehaviour
 
 		}
 
-				if (hitPoints < 1) { Destroy (gameObject); }
+				if (hitPoints < 1) { 
+			Score.shipsDestroyed += 1;
+			Destroy (gameObject); 
+						
+		}
 
 				// If the unit is in orbit, then the orbit dermines it's position/rotation so stop movement.
 				if (orbit.inOrbit)
