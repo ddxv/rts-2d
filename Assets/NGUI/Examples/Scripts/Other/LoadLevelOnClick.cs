@@ -3,7 +3,11 @@ using UnityEngine;
 [AddComponentMenu("NGUI/Examples/Load Level On Click")]
 public class LoadLevelOnClick : MonoBehaviour
 {
-	public string levelName;
+	private string levelName;
+
+	void Start() {
+		levelName = "BattleScene";
+	}
 
 	void OnClick ()
 	{

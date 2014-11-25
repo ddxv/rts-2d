@@ -8,13 +8,13 @@ public class Orbit : MonoBehaviour {
 	public GameObject clickcenter;
 
 
-	void OnMouseDown() {
+	//void OnMouseDown() {
 		/*Debug.Log ("clicked");
 
 		clickcenter = gameObject;
 		Obittwo.cube = clickcenter;
 		orbital.Orbital (); */
 
-	}
+//	}
 
 }

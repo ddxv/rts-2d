@@ -56,7 +56,7 @@ public class Obittwo : MonoBehaviour
 		public void Orbital ()
 		{				
 				center = currentBase.transform;
-				print ("orbiting");
+				//print ("orbiting");
 
 				// Rotates the ship around the base
 				transform.RotateAround (center.position, axis, rotationSpeed * Time.deltaTime);

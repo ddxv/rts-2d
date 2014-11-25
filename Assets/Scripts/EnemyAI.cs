@@ -1,21 +1,43 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class EnemyAI : MonoBehaviour {
+
 	public Vector3 target;
-	private GameObject[] go;
-	public int moveSpeed = 2;
-	public int rotationSpeed = 2;
-	public int maxdistance = 3;
+
 	public float delay = 3;
+
 	private int friendlyCount;
+
+	private int redEnemyCount;
+	private int greenEnemyCount;
+	private int blueEnemyCount;
+
+	private int randomBasesShips;
+
 	private string friendlyTag;
 	private GameObject enemyBase;
+
+	private string[] enemyTags;
+	private string[] enemyBaseTags;
+
+	private GameObject[] allBases;
+	private GameObject[] enemyBases;
+	private int newWeakest;
+
+	private int baseWithLessShips;
+	private int lastShipCount;
+	private int minint = 5;
+
 	private GameObject[] friendlyShips;
+
+	private Vector3 weakBaseToAttack;
 
 	//from an example, perhaps not necessary for us, but here because I'm having trouble finding what's wrong
 	private Unit[] startMoves;
 	private Obittwo[] startOrbits;
+
 
 
 	private Transform myTransform;
@@ -27,73 +49,85 @@ public class EnemyAI : MonoBehaviour {
 
 	void Start() {
 
+		allBases = GameObject.FindGameObjectsWithTag ("Base");
 
 		if (gameObject.tag == "Green Base") {
 			friendlyTag = "Green";
+			enemyTags = new string[] {"Red", "Blue"};
+			enemyBaseTags = new string[] {"Red Base", "Blue Base", "Enemy Base"};
+
+
 		}
 		if (gameObject.tag == "Red Base") {
 			friendlyTag = "Red";
+			enemyTags = new string[] {"Green", "Blue"};
+			enemyBaseTags = new string[] {"Green Base", "Blue Base", "Enemy Base"};
+		
 		}
 
 		if (gameObject.tag == "Blue Base") {
 			friendlyTag = "Blue";
+			enemyTags = new string[] {"Red", "Green"};
+			enemyBaseTags = new string[] {"Green Base", "Red Base", "Enemy Base"};
+
 		}
 
 		StartCoroutine (Loop ());
 
-				
 	}
+
+
+
+
+
 	
 	
 	IEnumerator Loop() {
 		
-				while (true) {
+		while (true) {
 
 
+						friendlyCount = GameObject.FindGameObjectsWithTag (friendlyTag).Length - 2;
+						minint = 5;
+						int ipos = 0;
+						foreach (GameObject checkingEnemyBase in allBases) {
 
-					friendlyCount = GameObject.FindGameObjectsWithTag (friendlyTag).Length;
+								if (checkingEnemyBase.gameObject.transform.parent.gameObject.tag != friendlyTag + " Base") {
 
-				//	Debug.Log(friendlyTag + friendlyTag.Length);
+										BaseController thatBase = checkingEnemyBase.gameObject.transform.parent.gameObject.GetComponent<BaseController> ();
 
-						if (friendlyCount > 2) {
-												//not sure how to auto specify 'anything but this Bases color' for choosing nearest GameObject to move to
-												//enemyBase = GameObject.FindGameObjectWithTag ("Green Base");
+										randomBasesShips = thatBase.nearbyShips;
 
-												enemyBase = GameObject.FindGameObjectWithTag ("Green Base");
-												//target = enemyBase.transform.position;
+
+										if (randomBasesShips < minint) { 
+
+												minint = randomBasesShips; 
+												newWeakest = ipos;
+										}
+								}
+								ipos++;
+						}
+
+						if (minint < friendlyCount) {
+
+								weakBaseToAttack = allBases [newWeakest].transform.position; 
+								enemyBase = allBases [newWeakest].gameObject.transform.parent.gameObject;
+
+								friendlyShips = GameObject.FindGameObjectsWithTag (friendlyTag);
+								startOrbits = new Obittwo[friendlyShips.Length];
+
+								Debug.Log ("Computer Moving " + friendlyCount + " " + friendlyTag + " SHIPS!");
+
+								for (int i = 0; i < friendlyShips.Length; i++) {
+										friendlyShips [i].GetComponent<Obittwo> ().SetBase (enemyBase);
+										friendlyShips [i].GetComponent<Unit> ().StartMove (weakBaseToAttack);
+								}
+						} 
 				
-												friendlyShips = GameObject.FindGameObjectsWithTag(friendlyTag);
-												startOrbits = new Obittwo[friendlyShips.Length];
-												
-										for(int i = 0; i < friendlyShips.Length; i++){
-													Debug.Log("LETS MOVE " + friendlyCount + " " + friendlyTag + " SHIPS!" );
-													friendlyShips[i].GetComponent<Obittwo>().SetBase(enemyBase.gameObject);
-													//friendlyShips[i].GetComponent<Unit>().StartMove(target);
-													}
+				
 
-											//orbit.SetBase (enemyBase.gameObject);
-												} 
-
-				//THIS SCRIPT IS WORKING BELOW. SENDS SHIPS TO CENTER OF ENEMY BASE AND DOES NOT ORBIT.
-//								//not sure how to auto specify 'anything but this Bases color' for choosing nearest GameObject to move to
-//								enemyBase = GameObject.FindGameObjectWithTag ("Green Base");
-//								target = enemyBase.transform.position;
-//
-//								friendlyShips = GameObject.FindGameObjectsWithTag(friendlyTag);
-//								startMoves = new Unit[friendlyShips.Length];
-//								
-//						for(int i = 0; i < friendlyShips.Length; i++){
-//									Debug.Log("LETS MOVE SHIPS!");
-//									friendlyShips[i].GetComponent<Unit>().targetLocation = target;
-//									friendlyShips[i].GetComponent<Unit>().StartMove(target);
-//								}
-
-								
-								yield return new WaitForSeconds (delay);
+				yield return new WaitForSeconds (delay);
 						}
 				}
 
-
 }
-
-		

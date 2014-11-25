@@ -68,6 +68,7 @@ public class Unit : MonoBehaviour
 
 				if (hitPoints < 1) { 
 			Score.shipsDestroyed += 1;
+
 			Destroy (gameObject); 
 						
 		}
@@ -83,7 +84,6 @@ public class Unit : MonoBehaviour
 
 		public void StartMove (Vector3 destination)
 		{
-				Debug.Log ("startmove started");
 
 		//rotates ships ONLY AI, targetLocation set by EnemyAI
 		//targetLocation = Camera.main.ScreenToWorldPoint (Input.mousePosition);
