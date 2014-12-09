@@ -8,7 +8,7 @@ public class EnemyAI : MonoBehaviour {
 
 	public float delay = 3;
 
-	private int friendlyCount;
+	private int friendlyCount = 0;
 
 	private int redEnemyCount;
 	private int greenEnemyCount;
@@ -28,7 +28,7 @@ public class EnemyAI : MonoBehaviour {
 
 	private int baseWithLessShips;
 	private int lastShipCount;
-	private int minint = 5;
+	private int minint;
 
 	private GameObject[] friendlyShips;
 
@@ -38,38 +38,41 @@ public class EnemyAI : MonoBehaviour {
 	private Unit[] startMoves;
 	private Obittwo[] startOrbits;
 
+	public static bool isGreen = false;
+	public static bool isRed = false;
+	public static bool isBlue = false;
 
 
 	private Transform myTransform;
-	
+
+
 	void Awake(){
-		myTransform = transform;
-	}
+				myTransform = transform;
+		}
 
 
 	void Start() {
 
 		allBases = GameObject.FindGameObjectsWithTag ("Base");
 
-		if (gameObject.tag == "Green Base") {
-			friendlyTag = "Green";
-			enemyTags = new string[] {"Red", "Blue"};
-			enemyBaseTags = new string[] {"Red Base", "Blue Base", "Enemy Base"};
-
-
-		}
-		if (gameObject.tag == "Red Base") {
-			friendlyTag = "Red";
-			enemyTags = new string[] {"Green", "Blue"};
-			enemyBaseTags = new string[] {"Green Base", "Blue Base", "Enemy Base"};
-		
-		}
-
-		if (gameObject.tag == "Blue Base") {
-			friendlyTag = "Blue";
-			enemyTags = new string[] {"Red", "Green"};
-			enemyBaseTags = new string[] {"Green Base", "Red Base", "Enemy Base"};
-
+			if (gameObject.tag == "Green Controller" && isGreen == false ) {
+				friendlyTag = "Green";
+				enemyTags = new string[] {"Red", "Blue"};
+				enemyBaseTags = new string[] {"Red Base", "Blue Base", "Enemy Base"};
+				
+			}
+			if (gameObject.tag == "Red Controller" && isRed == false) {
+				friendlyTag = "Red";
+				enemyTags = new string[] {"Green", "Blue"};
+				enemyBaseTags = new string[] {"Green Base", "Blue Base", "Enemy Base"};
+				
+			}
+			
+			if (gameObject.tag == "Blue Controller" && isBlue == false) {
+				friendlyTag = "Blue";
+				enemyTags = new string[] {"Red", "Green"};
+				enemyBaseTags = new string[] {"Green Base", "Red Base", "Enemy Base"};
+				
 		}
 
 		StartCoroutine (Loop ());
@@ -77,37 +80,44 @@ public class EnemyAI : MonoBehaviour {
 	}
 
 
-
-
-
-	
-	
 	IEnumerator Loop() {
 		
 		while (true) {
 
 
-						friendlyCount = GameObject.FindGameObjectsWithTag (friendlyTag).Length - 2;
-						minint = 5;
-						int ipos = 0;
-						foreach (GameObject checkingEnemyBase in allBases) {
-
-								if (checkingEnemyBase.gameObject.transform.parent.gameObject.tag != friendlyTag + " Base") {
-
-										BaseController thatBase = checkingEnemyBase.gameObject.transform.parent.gameObject.GetComponent<BaseController> ();
-
-										randomBasesShips = thatBase.nearbyShips;
+						friendlyCount = GameObject.FindGameObjectsWithTag (friendlyTag).Length;
+						allBases = GameObject.FindGameObjectsWithTag ("Base");
 
 
-										if (randomBasesShips < minint) { 
+						int currentpos = 0;
+			minint = 999;
+
+
+							//checks for base with least amount of ships and sets it to newWeakest
+							foreach (GameObject checkingEnemyBase in allBases) {
+
+									if (checkingEnemyBase.gameObject.transform.parent.gameObject.tag != friendlyTag + " Base") {
+
+											BaseController thatBase = checkingEnemyBase.gameObject.transform.parent.gameObject.GetComponent<BaseController> ();
+
+											randomBasesShips = thatBase.nearbyShips;
+										if (randomBasesShips == 0) {
+											newWeakest = currentpos;
+											//break;
+											}
+
+
+										else if (randomBasesShips < minint) { 
 
 												minint = randomBasesShips; 
-												newWeakest = ipos;
+												newWeakest = currentpos;
+											
 										}
-								}
-								ipos++;
-						}
+									}
+									currentpos++;
+							}
 
+						//attacks base if newWeakest's has less ships than total number of ships
 						if (minint < friendlyCount) {
 
 								weakBaseToAttack = allBases [newWeakest].transform.position; 
@@ -123,7 +133,6 @@ public class EnemyAI : MonoBehaviour {
 										friendlyShips [i].GetComponent<Unit> ().StartMove (weakBaseToAttack);
 								}
 						} 
-				
 				
 
 				yield return new WaitForSeconds (delay);

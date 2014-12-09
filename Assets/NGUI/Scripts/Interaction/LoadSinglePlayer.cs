@@ -6,6 +6,8 @@ public class LoadSinglePlayer : MonoBehaviour {
 	
 	void OnMouseDown()
 	{
+
+			EnemyAI.isGreen = true;
 			Application.LoadLevel("BattleScene");
 	}
 }

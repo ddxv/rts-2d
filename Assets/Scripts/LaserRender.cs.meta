@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: c0ec7d0003077ba4f9d913fadb5bd573
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - lineRenderer: {instanceID: 0}
+  - myMaterial: {instanceID: 0}
+  - myTexture: {fileID: 2800000, guid: c1da5514cc6cdb44093eca87e19da30c, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 

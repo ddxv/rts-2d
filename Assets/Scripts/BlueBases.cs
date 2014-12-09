@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TotalPoints : MonoBehaviour {
+public class BlueBases : MonoBehaviour {
 	
 	//change color
 	//spawn at specific point
@@ -24,8 +24,8 @@ public class TotalPoints : MonoBehaviour {
 	}
 	
 	void Update () {
-		int reds = Score.redBases;
-		_lbl.text = "Red:\n" + reds.ToString ();
+		int reds = Score.blueBases;
+		_lbl.text = "Blue:\n" + reds.ToString ();
 	}
 	
 	
