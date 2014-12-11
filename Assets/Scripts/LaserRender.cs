@@ -59,7 +59,10 @@ public class LaserRender : MonoBehaviour {
 			lineRenderer.enabled = true;
 			lineRenderer.SetPosition (1, gameObject.transform.position);
 
+			if (passedObjectAttack != null) {
 			pointThat = passedObjectAttack.transform.position;
+			}
+
 			pointThis = gameObject.transform.position;
 
 			distFrom = Vector2.Distance(pointThis, pointThat);
@@ -72,9 +75,11 @@ public class LaserRender : MonoBehaviour {
 			lineRenderer.SetPosition (0, pointThat);
 
 		}
-
-	
 	}
+
+	public void StopLaser (bool receivedbool) {
+		lineRenderer.enabled = receivedbool;
+		}
 
 	public void FireLaser(GameObject recieveobject) {
 

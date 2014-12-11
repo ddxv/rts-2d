@@ -34,11 +34,10 @@ public class EnemyAI : MonoBehaviour {
 
 	private Vector3 weakBaseToAttack;
 
-	//from an example, perhaps not necessary for us, but here because I'm having trouble finding what's wrong
 	private Unit[] startMoves;
 	private Obittwo[] startOrbits;
 
-	public static bool isGreen = false;
+	public static bool isGreen = true;
 	public static bool isRed = false;
 	public static bool isBlue = false;
 

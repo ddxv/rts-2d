@@ -1,0 +1,1 @@
+To use, simply drag the 'Touch Indicator Creator' prefab into your scene, preferably without any parents.

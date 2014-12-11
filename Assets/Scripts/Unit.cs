@@ -39,6 +39,7 @@ public class Unit : MonoBehaviour
 						
 						// If the ray hits a base, store the base in the unit's base property
 						if (hit != null && hit.collider != null && hit.collider.tag == "Base") {
+				hit.collider.gameObject.transform.parent.gameObject.SendMessage("BaseSelect");
 								orbit.SetBase (hit.collider.gameObject);
 						} else { // if the position was not an enemy base, detach the unit from it's current base
 								orbit.DetachBase ();

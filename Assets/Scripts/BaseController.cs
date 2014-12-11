@@ -55,7 +55,6 @@ public class BaseController : MonoBehaviour {
 
 
 		StartCoroutine(CheckingShipCount());
-//		StartCoroutine (TestCoroutine ());
 
 
 	}
@@ -69,12 +68,7 @@ public class BaseController : MonoBehaviour {
 			BaseHealth();
 		}
 	}
-//
-//
-//	IEnumerator TestCoroutine() {
-////		Debug.Log ();
-//
-//	}
+
 
 	IEnumerator CheckingShipCount(){
 

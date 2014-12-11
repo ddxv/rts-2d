@@ -4,7 +4,7 @@ using System.Collections;
 public class AnyAttack : MonoBehaviour {
 	
 	public bool attackingBool = false;
-	private float delay = 1f;
+	private float delay = .1f;
 	private float counter;
 
 	private string friendlyShip;
@@ -38,12 +38,12 @@ public class AnyAttack : MonoBehaviour {
 	private void OnTriggerEnter2D(Collider2D objectofattack) {
 
 				//To determine if it is an enemy Ship
-				if (objectofattack.gameObject.tag != friendlyShip & objectofattack.gameObject.tag != "Stuff" & objectofattack.gameObject.tag != "Base") {
+			if (objectofattack.gameObject.tag != friendlyShip & objectofattack.gameObject.tag != "Stuff" & objectofattack.gameObject.tag != "Base") {
 						attackingBool = true;
 						Debug.Log (objectofattack.tag + " Attacking Object");
 
 			transform.GetComponentInChildren<LaserRender>().pointThat = objectofattack.gameObject.transform.position;
-			//transform.GetComponentInChildren<LaserRender>();			
+
 			StartCoroutine (Attacking (objectofattack.gameObject));
 			
 				} else {
@@ -75,8 +75,7 @@ public class AnyAttack : MonoBehaviour {
 		
 			//Attacking Other Ships Life Points
 			Unit script = objectofattacktwo.GetComponent<Unit>();
-			script.hitPoints -= 10;
-			Score.totalPoints += 10;
+			script.hitPoints -= 1;
 			Debug.Log ("Current life down," + script.hitPoints);
 
 			if (script.hitPoints < 1) {
@@ -95,14 +94,16 @@ public class AnyAttack : MonoBehaviour {
 		//attackingBool = true;
 
 		while ( friendlyBase != objectofattacktwo.gameObject.transform.parent.gameObject.tag && attackingBool == true && hp.baseHitPoints > 0 && objectofattacktwo != null) {
-
-				hp.baseHitPoints -= 10;
-
-			if (hp.baseHitPoints < 10) {
-				attackingBool = false;
+			hp.baseHitPoints -= 1;
+			yield return new WaitForSeconds(delay);
 			}
 
-				yield return new WaitForSeconds(delay);
+		if (friendlyBase == objectofattacktwo.gameObject.transform.parent.gameObject.tag) {
+						Debug.Log ("This BASE IS OURS WHY NOT STOP?");
+						attackingBool = false;
+						gameObject.BroadcastMessage("StopLaser", false) ;
+						
+				}
 			}
 		}	
-}
+
