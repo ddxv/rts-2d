@@ -11,12 +11,12 @@ public class GenerateAttackers : MonoBehaviour
 //
 //	public GameObject shipShip;
 
-	private float delay=10;
+	public float delay=1f;
 	//public static Color colortest;
 	public Vector3 baseLocalPos = Vector3.zero;
 	public float baseRadius = 1f;
 	public float totalBaseRadius = 2f;
-	
+
 
 
 //
@@ -30,9 +30,7 @@ public class GenerateAttackers : MonoBehaviour
 	
 	
 	void Start() {
-		
 				StartCoroutine (Loop ());
-	
 		}
 	
 	
@@ -42,7 +40,7 @@ public class GenerateAttackers : MonoBehaviour
 		while (true) {
 
 			//this loop checks to find whether ships are enemies or friendly and instantiates them around the base in a random fashion
-						if (gameObject.tag == "Green Base") {
+						if (gameObject.tag == "Green Base" && EndGame.greenCount < 30 ) {
 							Vector3 pos = FindPos();
 							pos += transform.position;
 							//Instantiate(prefab, pos, transform.rotation);
@@ -51,10 +49,10 @@ public class GenerateAttackers : MonoBehaviour
 
 							greenShip.gameObject.tag = "Green";
 							
-							delay = 2f;
+							
 						}
 				
-						if (gameObject.tag == "Red Base") {
+						if (gameObject.tag == "Red Base" && EndGame.redCount < 30) {
 							Vector3 pos = FindPos();
 							pos += transform.position;
 							//Instantiate(prefab, pos, transform.rotation);
@@ -62,17 +60,17 @@ public class GenerateAttackers : MonoBehaviour
 			//	redShip.transform.renderer.material.color = hexColor (255, 0, 0, 255);
 			
 							redShip.gameObject.tag = "Red";
-							delay = 2f;
+							
 						}
 
-						if (gameObject.tag == "Blue Base") {
+						if (gameObject.tag == "Blue Base" && EndGame.blueCount < 30) {
 							Vector3 pos = FindPos();
 							pos += transform.position;
 							//Instantiate(prefab, pos, transform.rotation);
 							Instantiate(blueShip, pos, Quaternion.identity);
 						//	blueShip.transform.renderer.material.color = hexColor (51, 153, 255, 255);
 							blueShip.gameObject.tag = "Blue";
-							delay = 2f;
+							
 						}
 			
 			

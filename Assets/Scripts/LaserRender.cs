@@ -1,8 +1,6 @@
 using UnityEngine;
 using System.Collections;
 
-
-
 public class LaserRender : MonoBehaviour {
 
 	public LineRenderer lineRenderer;
@@ -36,14 +34,8 @@ public class LaserRender : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
-
 		lineRenderer = gameObject.GetComponent<LineRenderer> ();
-
 		lineRenderer.SetWidth (.03f, .03f);
-
-
-
 	}
 	
 	// Update is called once per frame
@@ -68,8 +60,8 @@ public class LaserRender : MonoBehaviour {
 			distFrom = Vector2.Distance(pointThis, pointThat);
 
 
-
-			if (distFrom > 1.8f) { gameObject.transform.parent.gameObject.GetComponent<AnyAttack>().attackingBool = false; lineRenderer.renderer.enabled = false;  }
+			//Beware, distance of 1.8 appears to not work, 2f works
+			if (distFrom > 2f) { gameObject.transform.parent.gameObject.GetComponent<AnyAttack>().attackingBool = false; lineRenderer.renderer.enabled = false;  }
 
 
 			lineRenderer.SetPosition (0, pointThat);

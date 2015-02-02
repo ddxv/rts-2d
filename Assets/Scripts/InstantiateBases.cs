@@ -13,7 +13,7 @@ public class InstantiateBases : MonoBehaviour {
 		//Green Base
 		for (int g = 0; g < 1; g++) {
 
-			Vector2 newpos = new Vector2(Random.Range(-5.0F, 5.0F), Random.Range(-5.0F, 5.0F ));
+			Vector2 newpos = new Vector2(Random.Range(-7.0F, 7.0F), Random.Range(-7.0F, 7.0F ));
 			Instantiate(basePrefab, position, Quaternion.identity);
 			basePrefab.tag = "Green Base";
 			}
@@ -23,8 +23,8 @@ public class InstantiateBases : MonoBehaviour {
 		for (int y = 0; y < 1; y++) {
 
 
-			Vector2 newpos = new Vector2(Random.Range(-5.0F, 5.0F), Random.Range(-5.0F, 5.0F ));
-			Collider2D [] neighbors = Physics2D.OverlapCircleAll (newpos, 2);
+			Vector2 newpos = new Vector2(Random.Range(-7.0F, 7.0F), Random.Range(-7.0F, 7.0F ));
+			Collider2D [] neighbors = Physics2D.OverlapCircleAll (newpos, 3);
 			
 			if (neighbors.Length == 0) { 
 				position = newpos;
@@ -39,8 +39,8 @@ public class InstantiateBases : MonoBehaviour {
 		//Red Base
 		for (int r = 0; r < 1; r++) {
 		
-			Vector2 newpos = new Vector2(Random.Range(-5.0F, 5.0F), Random.Range(-5.0F, 5.0F ));
-			 Collider2D []  neighbors = Physics2D.OverlapCircleAll (newpos, 2);
+			Vector2 newpos = new Vector2(Random.Range(-7.0F, 7.0F), Random.Range(-7.0F, 7.0F ));
+			 Collider2D []  neighbors = Physics2D.OverlapCircleAll (newpos, 3);
 			
 			if (neighbors.Length == 0) { 
 				position = newpos;
@@ -54,9 +54,9 @@ public class InstantiateBases : MonoBehaviour {
 
 
 		//Enemy Base
-		for (int e = 0; e < 4; e++) {
-			Vector2 newpos = new Vector2(Random.Range(-5.0F, 5.0F), Random.Range(-5.0F, 5.0F ));
-			Collider2D [] neighbors = Physics2D.OverlapCircleAll (newpos, 2);
+		for (int e = 0; e < 6; e++) {
+			Vector2 newpos = new Vector2(Random.Range(-7.0F, 7.0F), Random.Range(-7.0F, 7.0F ));
+			Collider2D [] neighbors = Physics2D.OverlapCircleAll (newpos, 3);
 			
 			if (neighbors.Length == 0) { 
 				position = newpos;

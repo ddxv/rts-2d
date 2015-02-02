@@ -9,7 +9,6 @@ public class ClickSinglePlayer : MonoBehaviour {
 	{
 
 		Application.LoadLevel ("BattleScene");
-
 			
 		}
 	}

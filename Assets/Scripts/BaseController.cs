@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BaseController : MonoBehaviour {
 
-	public int baseHitPoints = 300;
+	public  int baseHitPoints = 300;
 	public float delayHealth = 2f;
 	private float waitTimeCheck = 1f;
 	private int red = 0;
@@ -92,7 +92,7 @@ public class BaseController : MonoBehaviour {
 
 //								Debug.Log (gameObject.tag + " thinks its friendlyTag is: " + friendlyTag);
 							
-								Collider2D[] shipsArray = Physics2D.OverlapCircleAll (thisBasesPosition, 3f);
+								Collider2D[] shipsArray = Physics2D.OverlapCircleAll (thisBasesPosition, 4f);
 
 								//Debug.Log ("there are " + shipsArray.Length + " in shipsArray");
 
@@ -168,10 +168,10 @@ public class BaseController : MonoBehaviour {
 		red = 0;
 		green = 0;
 		blue = 0;
-
-		GameObject go = GameObject.Find ("_GameController");
-		go.GetComponent<Score>().CheckBaseNumbers ();
-	
+//
+//		GameObject go = GameObject.Find ("_GameController");
+//		go.GetComponent<Score>().CheckBaseNumbers ();
+//	
 
 		}
 	

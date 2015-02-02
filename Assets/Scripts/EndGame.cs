@@ -3,9 +3,9 @@ using System.Collections;
 
 public class EndGame : MonoBehaviour {
 
-	private GameObject[] redShips;
-	private GameObject[] greenShips;
-	private GameObject[] blueShips;
+	public GameObject[] redShips;
+	public GameObject[] greenShips;
+	public GameObject[] blueShips;
 
 	private GameObject[] redBases;
 	private GameObject[] greenBases;
@@ -24,14 +24,8 @@ public class EndGame : MonoBehaviour {
 	void Update()
 	{
 
-		//This is surely expensive and mostly useless information. Perhaps integrate these numbers with EnemyAI findgameobjectswithtag
-		greenShips = GameObject.FindGameObjectsWithTag ("Green");
-		redShips = GameObject.FindGameObjectsWithTag ("Red");
-		blueShips = GameObject.FindGameObjectsWithTag ("Blue");
+		StartCoroutine ("CheckingOnStuff");
 
-		greenBases = GameObject.FindGameObjectsWithTag ("Green Base");
-		redBases = GameObject.FindGameObjectsWithTag ("Red Base");
-		blueBases = GameObject.FindGameObjectsWithTag ("Blue Base");
 
 
 		greenCount = greenShips.Length + greenBases.Length;
@@ -70,4 +64,25 @@ public class EndGame : MonoBehaviour {
 			
 		}
 	}
+
+	private IEnumerator CheckingOnStuff() {
+
+		while (true) {
+
+			//This is surely expensive and mostly useless information. Perhaps integrate these numbers with EnemyAI findgameobjectswithtag
+			greenShips = GameObject.FindGameObjectsWithTag ("Green");
+			redShips = GameObject.FindGameObjectsWithTag ("Red");
+			blueShips = GameObject.FindGameObjectsWithTag ("Blue");
+			
+			greenBases = GameObject.FindGameObjectsWithTag ("Green Base");
+			redBases = GameObject.FindGameObjectsWithTag ("Red Base");
+			blueBases = GameObject.FindGameObjectsWithTag ("Blue Base");
+
+			yield return new WaitForSeconds(.2f);
+
+				}
+
+
+
+		}
 }

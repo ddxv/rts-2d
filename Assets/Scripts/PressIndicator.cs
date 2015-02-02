@@ -14,11 +14,11 @@ public class PressIndicator : MonoBehaviour {
 
 		//while (baseAnimating) {
 
-						Debug.Log ("Message REcieved");
+				//		Debug.Log ("Message REcieved");
 
 						for (int i= 0; i < 10; i++) {
 								transform.localScale += new Vector3 (.01f, .01f, 0);
-								Debug.Log ("This is happening fast");
+//								Debug.Log ("This is happening fast");
 								yield return new WaitForSeconds (delay);
 						}
 
